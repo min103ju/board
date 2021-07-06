@@ -1,7 +1,7 @@
 ![version badge](https://img.shields.io/badge/version-0.0.1-blue)
 ![build badge](https://img.shields.io/badge/build-passing-brightgreen)
 ![coverage badge](https://img.shields.io/badge/coverage-0%25-lightgrey)
-# :blush: Spring boot로 게시판 Web 개발
+# :blush: Spring boot로 Web 게시판 개발
 QueryDsl로 쿼리 최적화를 진행하며, TDD를 기반으로 개발을 목표로 한다.
 최초 버전은 Rest API Server 형태로 개발한다.
 추후 개발 예정 내용으로 View는 React나 Vue.js로 개발 예정.
