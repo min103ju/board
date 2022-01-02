@@ -3,13 +3,16 @@ package com.citizen.board.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Entity
-@NoArgsConstructor
+@ToString
+@Builder(builderClassName = "PostBuilder", builderMethodName = "allBuilder", toBuilder = true)
 public class Post extends BaseTimeEntity {
 
     @Id
@@ -21,18 +24,24 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
-    private String author;
+    @Builder.Default
+    private String author = "default author";
 
+    @Builder(builderClassName = "PostTitleBuilder", builderMethodName = "postTitleBuilder")
     public Post(String title) {
-        new Post(null, title, null, null);
+        this.title = title;
     }
 
+    @Builder(builderClassName = "PostTitleAndContentBuilder", builderMethodName = "postTitleAndContentBuilder")
     public Post(String title, String content) {
-        new Post(null, title, content, null);
+        this.title = title;
+        this.content = content;
     }
 
-    public Post(String title, String content, String author) {
-        new Post(null, title, content, author);
+    public static PostBuilder builder(String title, String content) {
+        return allBuilder()
+            .title(title)
+            .content(content);
     }
 
     public Post(Long id, String title, String content, String author) {
@@ -42,17 +51,46 @@ public class Post extends BaseTimeEntity {
         this.author = author;
     }
 
-    public static Post ofTitle(String title) {
-        Post post = new Post();
-        post.title = title;
-        return post;
-    }
+    /* Static Factory Method */
+//    public static Post ofTitle(String title) {
+//        Post post = new Post();
+//        post.title = title;
+//        return post;
+//    }
 
-    public static Post ofTitleAndContent(String title, String content) {
-        Post post = new Post();
-        post.title = title;
-        post.content = content;
-        return post;
-    }
+//    public static Post ofTitleAndContent(String title, String content) {
+//        Post post = new Post();
+//        post.title = title;
+//        post.content = content;
+//        return post;
+//    }
+
+    /* Builder Pattern */
+//    public static PostBuilder builder(String title, String content) {
+//        return new PostBuilder(title, content);
+//    }
+//
+//    public static class PostBuilder {
+//
+//        private String title;
+//        private String content;
+//        private String author;
+//
+//        public PostBuilder(String title, String content) {
+//            this.title = title;
+//            this.content = content;
+//        }
+//
+//        public PostBuilder author(String author) {
+//            this.author = author;
+//            return this;
+//        }
+//
+//        public Post build() {
+//            return new Post(this.title, this.content, this.author);
+//        }
+//
+//    }
+
 
 }
